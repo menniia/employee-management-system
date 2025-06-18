@@ -4,11 +4,11 @@ const LeaveCard = ({ leave }) => {
     const getStatusColor = (status) => {
         switch (status.toLowerCase()) {
             case "approved":
-                return "bg-[#C8F7DB] text-[#166534]";
+                return "bg-[#DCFCE7] text-[#166534] border-2 border-[#BBF7D0]";
             case "pending":
-                return "bg-[#FEF9C3] text-[#EAB308]";
+                return "bg-[#FEF9C3] text-[#854D0E] border-2 border-[#FEF08A]";
             case "rejected":
-                return "bg-red-100 text-red-700";
+                return "bg-red-100 text-red-700 border-2 border-[#F04438]";
             default:
                 return "bg-gray-100 text-gray-700";
         }
@@ -23,7 +23,7 @@ const LeaveCard = ({ leave }) => {
     };
 
     return (
-        <div className="border border-gray-200 rounded-lg p-4 font-jakarta hover:shadow-sm transition-shadow">
+        <div className="border border-[#E5E7EB] rounded-xl p-4 font-jakarta hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
                     <div className="flex items-center justify-center">

@@ -1,9 +1,11 @@
 import {
     AlertCircle,
     Calendar,
+    CalendarDays,
     CircleCheckBig,
     Clock,
     FileText,
+    Lightbulb,
     Plus,
     TrendingUp,
 } from "lucide-react";
@@ -97,10 +99,10 @@ const Dashboard = ({ user }) => {
 
     const getHolidayTypeColor = (type) => {
         const colors = {
-            National: "bg-blue-100 text-blue-800",
-            Company: "bg-purple-100 text-purple-800",
+            National: "bg-blue-100 text-blue-800 border border-[#E5E7EB]",
+            Company: "bg-purple-100 text-purple-800 border border-[#E5E7EB]",
         };
-        return colors[type];
+        return colors[type] || "bg-gray-100 text-gray-800";
     };
 
     const totalAllocated = leaveBalances.reduce(
@@ -264,6 +266,79 @@ const Dashboard = ({ user }) => {
                             {recentLeaves.slice(0, 3).map((leave) => (
                                 <LeaveCard key={leave.id} leave={leave} />
                             ))}
+                            <Link
+                                to="/my-leaves"
+                                className="w-full inline-flex items-center justify-center border border-[#E5E7EB] px-4 py-2 font-jakarta font-medium hover:bg-[#F3F4F6] transition-colors duration-300 rounded-lg"
+                            >
+                                View All Requests
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                {/* sidebar */}
+                <div className="space-y-6">
+                    {/* upcoming holidays */}
+                    <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                        <div className="flex items-center gap-2 mb-6">
+                            <CalendarDays size={20} />
+                            <h2 className="font-jakarta font-semibold text-xl">
+                                Upcoming Holidays
+                            </h2>
+                        </div>
+                        <div className="space-y-3">
+                            {upcomingHolidays.map((holiday) => (
+                                <div
+                                    key={holiday.id}
+                                    className="flex items-center justify-between py-2"
+                                >
+                                    <div className="font-jakarta">
+                                        <p className="font-medium text-sm">
+                                            {holiday.name}
+                                        </p>
+                                        <p className="text-xs text-[#6B7280]">
+                                            {formatDate(holiday.date)}
+                                        </p>
+                                    </div>
+                                    <span
+                                        className={`px-3 py-1 text-xs font-medium rounded-full ${getHolidayTypeColor(
+                                            holiday.type
+                                        )}`}
+                                    >
+                                        {holiday.type}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* quick tips */}
+                    <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                        <div className="flex items-center gap-2 mb-4 font-jakarta">
+                            <Lightbulb size={20} className="text-[#4500FF]" />
+                            <h3 className="font-semibold">Tips</h3>
+                        </div>
+
+                        <div className="space-y-3 text-sm font-jakarta">
+                            <div className="p-3 bg-blue-50 rounded-xl border-l-4 border-blue-500">
+                                <p className="font-medium text-blue-900 mb-1">
+                                    Plan Ahead
+                                </p>
+                                <p className="text-blue-800">
+                                    Submit leave requests at least 2 weeks in
+                                    advance for better approval chances.
+                                </p>
+                            </div>
+
+                            <div className="p-3 bg-green-50 rounded-xl border-l-4 border-green-500">
+                                <p className="font-medium text-green-900 mb-1">
+                                    Use Your Days
+                                </p>
+                                <p className="text-green-800">
+                                    Don't forget to use your allocated vacation
+                                    days before year-end!
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

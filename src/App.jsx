@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import EmployeeHeader from "./components/EmployeeHeader";
 import Dashboard from "./pages/Dashboard";
+import RequestLeave from "./pages/RequestLeave";
 
 function App() {
     const mockUser = {
@@ -18,6 +19,10 @@ function App() {
                         <Route
                             path="/"
                             element={<Dashboard user={mockUser} />}
+                        />
+                        <Route
+                            path="/request-leave"
+                            element={<RequestLeave user={mockUser} />}
                         />
                     </Routes>
                 </main>
