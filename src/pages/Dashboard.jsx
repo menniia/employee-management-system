@@ -118,7 +118,7 @@ const Dashboard = ({ user }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* header */}
             <div className="mb-8">
-                <h1 className="text-3xl font-bold font-jakarta text-[#212121]">
+                <h1 className="text-2xl sm:text-3xl font-bold font-jakarta text-[#212121]">
                     Welcome back, {user.name || "Menniia Donatus"}!
                 </h1>
                 <p className="mt-2 font-jakarta text-[#4B5563]">
@@ -206,8 +206,8 @@ const Dashboard = ({ user }) => {
                 <div className="lg:col-span-2">
                     <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
                         <div className="flex items-center gap-2 mb-1">
-                            <Calendar />
-                            <h2 className="font-jakarta font-bold text-2xl">
+                            <Calendar size={25} />
+                            <h2 className="font-jakarta font-bold text-xl sm:text-2xl">
                                 Leave Balances
                             </h2>
                         </div>
@@ -254,7 +254,7 @@ const Dashboard = ({ user }) => {
                     <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6 mt-6">
                         <div className="flex items-center gap-2 mb-1 font-jakarta">
                             <Clock size={25} />
-                            <h2 className="font-semibold text-2xl">
+                            <h2 className="font-semibold text-xl sm:text-2xl">
                                 Recent Leave Requests
                             </h2>
                         </div>

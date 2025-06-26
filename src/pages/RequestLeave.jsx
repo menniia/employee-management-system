@@ -550,14 +550,14 @@ const RequestLeave = ({ user }) => {
                     <button
                         type="button"
                         onClick={() => navigate("/")}
-                        className="flex-1 px-6 py-2 bg-[#FFFFFF] text-[#212121] border border-[#E5E7EB] cursor-pointer rounded-lg font-medium hover:bg-[#F3F4F6] transition-colors duration-300"
+                        className="flex-1 px-6 py-2 bg-[#FFFFFF] text-sm sm:text-base text-[#212121] border border-[#E5E7EB] cursor-pointer rounded-lg font-medium hover:bg-[#F3F4F6] transition-colors duration-300"
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         disabled={!isFormValid}
-                        className={`flex-1 px-6 py-2 rounded-lg font-medium text-[#F9FAFB] transition-colors duration-300 ${
+                        className={`flex-1 px-6 py-2 rounded-lg text-sm sm:text-base font-medium text-[#F9FAFB] transition-colors duration-300 ${
                             isFormValid
                                 ? "bg-[#212121] hover:bg-gray-800 cursor-pointer"
                                 : "bg-[#858991] cursor-not-allowed"
