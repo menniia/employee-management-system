@@ -210,6 +210,21 @@ const HRDashboard = ({ user }) => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* recent leave requests */}
+                        <div className="lg:col-span-2">
+                            <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <div>
+                                        <h2 className="font-bold text-xl sm:text-2xl">
+                                            Recent Leave Requests
+                                        </h2>
+                                        <p className="text-sm text-[#6B7280] mt-2 mb-6">
+                                            Latest request that require
+                                            attention
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
