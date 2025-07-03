@@ -207,6 +207,10 @@ const HRDashboard = ({ user }) => {
                             <p className="text-xs text-[#6B7280]">This month</p>
                         </div>
                     </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        {/* recent leave requests */}
+                    </div>
                 </div>
             </main>
         </div>
