@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import LeaveCard from "../components/LeaveCard";
 
-const Dashboard = ({ user }) => {
+const EmployeeDashboard = ({ user }) => {
     //mock data, I'll later fix this from API
     const leaveBalances = [
         { type: "annual", allocated: 20, used: 3, remaining: 17 },
@@ -347,4 +347,4 @@ const Dashboard = ({ user }) => {
     );
 };
 
-export default Dashboard;
+export default EmployeeDashboard;
