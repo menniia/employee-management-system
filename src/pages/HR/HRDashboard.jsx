@@ -3,10 +3,16 @@ import HRHeader from "../../components/HRHeader";
 import {
     Activity,
     AlertCircle,
+    BarChart3,
     Calendar,
+    CalendarDays,
+    CheckCircle,
+    Clock,
     FileText,
     Plus,
+    User,
     Users,
+    XCircle,
 } from "lucide-react";
 
 const HRDashboard = ({ user }) => {
@@ -90,11 +96,11 @@ const HRDashboard = ({ user }) => {
     const getStatusColor = (status) => {
         switch (status.toLowerCase()) {
             case "approved":
-                return "bg-green-100 text-green-800";
+                return "bg-[#DCFCE7] text-[#166534] border-2 border-[#BBF7D0]";
             case "pending":
-                return "bg-yellow-100 text-yellow-800";
+                return "bg-[#FEF9C3] text-[#854D0E] border-2 border-[#FEF08A]";
             case "rejected":
-                return "bg-red-100 text-red-800";
+                return "bg-red-100 text-red-700 border-2 border-[#F04438]";
             default:
                 return "bg-gray-100 text-gray-800";
         }
@@ -105,6 +111,14 @@ const HRDashboard = ({ user }) => {
             month: "short",
             day: "numeric",
         });
+    };
+
+    const getHolidayTypeColor = (type) => {
+        const colors = {
+            National: "bg-blue-100 text-blue-800 border border-[#E5E7EB]",
+            Company: "bg-purple-100 text-purple-800 border border-[#E5E7EB]",
+        };
+        return colors[type] || "bg-gray-100 text-gray-800";
     };
     return (
         <div className="min-h-screen bg-[#F9FAFB]">
@@ -222,6 +236,266 @@ const HRDashboard = ({ user }) => {
                                             attention
                                         </p>
                                     </div>
+                                    <Link
+                                        to="/hr/leave-requests"
+                                        className="text-[#4500FF] text-sm font-medium"
+                                    >
+                                        View all
+                                    </Link>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {recentLeaveRequests.map((request) => (
+                                        <div
+                                            key={request.id}
+                                            className="rounded-xl border border-[#E5E7EB] p-6 hover:shadow-sm transition-shadow"
+                                        >
+                                            <div className="flex items-center justify-between mb-3">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="flex items-center justify-center">
+                                                        <User
+                                                            size={20}
+                                                            className="text-[#6B7280]"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-medium text-[#212121]">
+                                                            {
+                                                                request.employeeName
+                                                            }
+                                                        </div>
+                                                        <div className="text-sm text-[#999EA7]">
+                                                            {request.department}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span
+                                                    className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(
+                                                        request.status
+                                                    )}`}
+                                                >
+                                                    {request.status}
+                                                </span>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-4 mb-3 text-sm text-[#212121]">
+                                                <div>
+                                                    <span className="font-medium">
+                                                        Type:
+                                                    </span>{" "}
+                                                    {request.leaveType}
+                                                </div>
+                                                <div>
+                                                    <span className="font-medium">
+                                                        Duration:
+                                                    </span>{" "}
+                                                    {request.days} day
+                                                    {request.days > 1
+                                                        ? "s"
+                                                        : ""}
+                                                </div>
+                                                <div>
+                                                    <span className="font-medium">
+                                                        From:
+                                                    </span>{" "}
+                                                    {formatDate(
+                                                        request.startDate
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <span className="font-medium">
+                                                        To:
+                                                    </span>{" "}
+                                                    {formatDate(
+                                                        request.endDate
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            <div className="text-sm">
+                                                <span className="font-medium">
+                                                    Reason:
+                                                </span>{" "}
+                                                {request.reason}
+                                            </div>
+
+                                            {request.status === "pending" && (
+                                                <div className="mt-3 flex space-x-2">
+                                                    <button className="px-3 py-1 bg-[#90e09c] text-[#0a3911] text-sm leading-[140%] rounded-sm hover:bg-green-500 transition-colors">
+                                                        Approve
+                                                    </button>
+                                                    <button className="px-3 py-1 bg-[#f7461e] text-[#FFFFFF] text-sm leading-[140%] rounded-sm hover:bg-red-500 transition-colors">
+                                                        Reject
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* leave statistics */}
+                            <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6 mt-6">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <BarChart3 size={25} />
+                                    <h3 className="text-lg font-semibold">
+                                        Leave Statistics
+                                    </h3>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {leaveStatistics.map((stat) => (
+                                        <div
+                                            key={stat.type}
+                                            className="flex items-center justify-between"
+                                        >
+                                            <div className="flex items-center space-x-3">
+                                                <div
+                                                    className={`w-3 h-3 rounded-full ${stat.color}`}
+                                                />
+                                                <span className="text-sm font-medium text-[#3a3838]">
+                                                    {stat.type}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex items-center space-x-3">
+                                                <div className="w-24 bg-gray-200 rounded-full h-2">
+                                                    <div
+                                                        className={`h-2 rounded-full ${stat.color}`}
+                                                        style={{
+                                                            width: `${
+                                                                (stat.count /
+                                                                    100) *
+                                                                100
+                                                            }%`,
+                                                        }}
+                                                    />
+                                                </div>
+                                                <span className="text-sm font-medium text-[#3a3838]">
+                                                    {stat.count}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* sidebar */}
+                        <div className="space-y-6">
+                            {/* stats */}
+                            <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                                <h3 className="font-semibold text-[#444546] text-lg mb-4">
+                                    Todays Activity
+                                </h3>
+
+                                <div className="space-y-4">
+                                    {/* approved */}
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-2">
+                                            <CheckCircle
+                                                size={16}
+                                                className="text-[#00C951]"
+                                            />
+                                            <span className="text-sm text-[#3a3838]">
+                                                Approved
+                                            </span>
+                                        </div>
+                                        <span className="text-sm font-medium text-[#3a3838]">
+                                            {stats.approvedToday}
+                                        </span>
+                                    </div>
+
+                                    {/* rejected */}
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-2">
+                                            <XCircle
+                                                size={16}
+                                                className="text-[#F7451F]"
+                                            />
+                                            <span className="text-sm text-[#3a3838]">
+                                                Rejected
+                                            </span>
+                                        </div>
+                                        <span className="text-sm font-medium text-[#3a3838]">
+                                            {stats.rejectedToday}
+                                        </span>
+                                    </div>
+
+                                    {/* pending */}
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-2">
+                                            <Clock
+                                                size={16}
+                                                className="text-[#F0B100]"
+                                            />
+                                            <span className="text-sm text-[#3a3838]">
+                                                Pending
+                                            </span>
+                                        </div>
+                                        <span className="text-sm font-medium text-[#3a3838]">
+                                            {stats.pendingApprovals}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* holidays */}
+                            <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                                <div className="flex items-center gap-2 mb-4 text-[#444546]">
+                                    <CalendarDays size={18} />
+                                    <h2 className="font-jakarta font-semibold text-lg">
+                                        Upcoming Holidays
+                                    </h2>
+                                </div>
+                                <div className="space-y-3">
+                                    {upcomingHolidays.map((holiday) => (
+                                        <div
+                                            key={holiday.id}
+                                            className="flex items-center justify-between py-2"
+                                        >
+                                            <div className="font-jakarta">
+                                                <p className="font-medium text-sm">
+                                                    {holiday.name}
+                                                </p>
+                                                <p className="text-xs text-[#6B7280]">
+                                                    {formatDate(holiday.date)}
+                                                </p>
+                                            </div>
+                                            <span
+                                                className={`px-3 py-1 text-xs font-medium rounded-full ${getHolidayTypeColor(
+                                                    holiday.type
+                                                )}`}
+                                            >
+                                                {holiday.type}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* quick actions */}
+                            <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                                <h3 className="text-[#444546] text-lg font-semibold mb-4">
+                                    Quick Actions
+                                </h3>
+
+                                <div className="space-y-3">
+                                    <Link
+                                        to="/hr/employees"
+                                        className="w-full flex items-center justify-center px-4 py-2 border border-[#E5E7EB] rounded-xl text-[#444546] font-medium hover:bg-gray-200 transition-colors"
+                                    >
+                                        <Users size={18} className="mr-2" />
+                                        Manage Employees
+                                    </Link>
+
+                                    <Link
+                                        to="/hr/reports"
+                                        className="w-full flex items-center justify-center px-4 py-2 border border-[#E5E7EB] rounded-xl text-[#444546] font-medium hover:bg-gray-200 transition-colors"
+                                    >
+                                        <BarChart3 size={18} className="mr-2" />
+                                        View Reports
+                                    </Link>
                                 </div>
                             </div>
                         </div>
