@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import HRHeader from "../../components/HRHeader";
 import {
     Activity,
-    AlertCircle,
     BarChart3,
     Calendar,
     CalendarDays,
@@ -138,7 +137,7 @@ const HRDashboard = ({ user }) => {
                     <div className="mb-8">
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
-                                to="hr/employees/add"
+                                to="/hr/employees/add"
                                 className="flex-1 sm:flex-none inline-flex items-center justify-center font-jakarta bg-[#111827] text-[#F9FAFB] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300"
                             >
                                 <Plus size={18} className="mr-2" />
@@ -146,14 +145,14 @@ const HRDashboard = ({ user }) => {
                             </Link>
                             <Link
                                 to="/hr/leave-requests"
-                                className="flex-1 sm:flex-none inline-flex items-center justify-center font-jakarta bg-[#111827] text-[#F9FAFB] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300"
+                                className="flex-1 sm:flex-none inline-flex items-center justify-center font-jakarta border border-[#E5E7EB] bg-[#FFFFFF]  text-[#212121] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-300"
                             >
                                 <FileText size={18} className="mr-2" />
                                 Leave Requests
                             </Link>
                             <Link
                                 to="/hr/calendar"
-                                className="flex-1 sm:flex-none inline-flex items-center justify-center font-jakarta bg-[#111827] text-[#F9FAFB] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300"
+                                className="flex-1 sm:flex-none inline-flex items-center justify-center font-jakarta border border-[#E5E7EB] bg-[#FFFFFF] text-[#212121] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-300"
                             >
                                 <Calendar size={18} className="mr-2" />
                                 View Calendar
@@ -163,7 +162,7 @@ const HRDashboard = ({ user }) => {
 
                     {/* stat cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div className="bg-white rounded-lg border border-gray-200 p-6">
+                        <div className="bg-white rounded-lg border border-[#E5E7EB] p-6">
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="text-sm font-medium">
                                     Total Employees
@@ -178,7 +177,7 @@ const HRDashboard = ({ user }) => {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-lg border border-gray-200 p-6">
+                        <div className="bg-white rounded-lg border border-[#E5E7EB] p-6">
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="text-sm font-medium">
                                     Working Today
@@ -193,12 +192,12 @@ const HRDashboard = ({ user }) => {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-lg border border-gray-200 p-6">
+                        <div className="bg-white rounded-lg border border-[#E5E7EB] p-6">
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="text-sm font-medium">
                                     Pending Approvals
                                 </h3>
-                                <AlertCircle className="h-4 w-4 text-yellow-500" />
+                                <Clock className="h-4 w-4 text-yellow-500" />
                             </div>
                             <div className="text-2xl font-bold">
                                 {stats.pendingApprovals}
@@ -208,7 +207,7 @@ const HRDashboard = ({ user }) => {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-lg border border-gray-200 p-6">
+                        <div className="bg-white rounded-lg border border-[#E5E7EB] p-6">
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="text-sm font-medium">
                                     Total Requests
@@ -226,7 +225,7 @@ const HRDashboard = ({ user }) => {
                         {/* recent leave requests */}
                         <div className="lg:col-span-2">
                             <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
-                                <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center justify-between mb-4">
                                     <div>
                                         <h2 className="font-bold text-xl sm:text-2xl">
                                             Recent Leave Requests

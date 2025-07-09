@@ -4,6 +4,7 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import RequestLeave from "./pages/RequestLeave";
 import MyLeaves from "./pages/MyLeaves";
 import HRDashboard from "./pages/HR/HRDashboard";
+import AddEmployee from "./pages/HR/AddEmployee";
 
 function App() {
     const mockUser = {
@@ -20,22 +21,6 @@ function App() {
 
     return (
         <Router>
-            {/* <div className="min-h-screen bg-[#F9FAFB]">
-                <EmployeeHeader user={mockUser} />
-                <main className="pt-16">
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={<EmployeeDashboard user={mockUser} />}
-                        />
-                        <Route
-                            path="/request-leave"
-                            element={<RequestLeave user={mockUser} />}
-                        />
-                        <Route path="/my-leaves" element={<MyLeaves />} />
-                    </Routes>
-                </main>
-            </div> */}
             <div className="min-h-screen bg-[#F9FAFB]">
                 <Routes>
                     {/* employee routes */}
@@ -77,6 +62,10 @@ function App() {
                     <Route
                         path="/hr"
                         element={<HRDashboard user={mockHRUser} />}
+                    />
+                    <Route
+                        path="/hr/employees/add"
+                        element={<AddEmployee user={mockHRUser} />}
                     />
                 </Routes>
             </div>
