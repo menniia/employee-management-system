@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HRHeader from "../../components/HRHeader";
 import {
-    ArrowDown,
     ArrowLeft,
     Building,
     CalendarDays,
     Mail,
     Phone,
+    Save,
     User,
+    UserCheck,
+    X,
 } from "lucide-react";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
@@ -30,6 +32,7 @@ const AddEmployee = ({ user }) => {
         status: "active",
         salary: "",
         leaveBalances: {
+            family: 25,
             sick: 10,
             personal: 5,
         },
@@ -55,6 +58,12 @@ const AddEmployee = ({ user }) => {
         { value: "adenta", label: "Adenta" },
         { value: "botwe", label: "Botwe" },
         { value: "dansoman", label: "Dansoman" },
+    ];
+
+    const statusOptions = [
+        { value: "active", label: "Active" },
+        { value: "inactive", label: "Inactive" },
+        { value: "on leave", label: "On Leave" },
     ];
 
     const handleSubmit = (e) => {
@@ -417,7 +426,183 @@ const AddEmployee = ({ user }) => {
                                         aria-label="Location Selector"
                                     />
                                 </div>
+
+                                {/* employee status */}
+                                <div>
+                                    <label
+                                        htmlFor="employeeStatus"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Employee Status
+                                    </label>
+                                    <Select
+                                        value={statusOptions.find(
+                                            (s) => s.value === formData.status
+                                        )}
+                                        onChange={(option) =>
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                status: option
+                                                    ? option.value
+                                                    : "",
+                                            }))
+                                        }
+                                        options={statusOptions}
+                                        isClearable={false}
+                                        menuPlacement="auto"
+                                        placeholder="Select Status"
+                                        aria-label="Status Selector"
+                                        styles={{
+                                            control: (base) => ({
+                                                ...base,
+                                                borderRadius: "0.5rem",
+                                                borderColor: "#D1D5DB",
+                                                padding: "2px 6px",
+                                                fontSize: "0.875rem",
+                                                boxShadow: "none",
+                                                "&:hover": {
+                                                    borderColor: "#4500FF",
+                                                },
+                                            }),
+                                        }}
+                                    />
+                                </div>
+
+                                {/* salary */}
+                                <div>
+                                    <label
+                                        htmlFor="salary"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Salary
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="salary"
+                                        id="salary"
+                                        value={formData.salary}
+                                        onChange={handleInputChange}
+                                        min={0}
+                                        placeholder="Enter Employee Salary..."
+                                        className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB] placeholder:text-sm"
+                                    />
+                                </div>
                             </div>
+                        </div>
+
+                        {/* set employee leave balances */}
+                        <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                            <div className="mb-6">
+                                <div className="flex items-center gap-2">
+                                    <UserCheck
+                                        size={20}
+                                        className="text-[#4500FF]"
+                                    />
+                                    <h2 className="text-lg font-semibold text-[#1d2228]">
+                                        Employee Leave Balances
+                                    </h2>
+                                </div>
+                                <p className="text-[#3c444f] text-sm">
+                                    Set employee leave balances
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {/* family leave days */}
+                                <div>
+                                    <label
+                                        htmlFor="familyLeaveDays"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Family Leave Days
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="familyLeaveDays"
+                                        id="familyLeaveDays"
+                                        value={formData.leaveBalances.family}
+                                        onChange={(e) =>
+                                            handleLeaveBalanceChange(
+                                                "family",
+                                                parseInt(e.target.value) || 0
+                                            )
+                                        }
+                                        min={0}
+                                        max={50}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB]"
+                                    />
+                                </div>
+
+                                {/* personal leave days */}
+                                <div>
+                                    <label
+                                        htmlFor="personalLeaveDays"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Personal Leave Days
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="personalLeaveDays"
+                                        id="personalLeaveDays"
+                                        value={formData.leaveBalances.personal}
+                                        onChange={(e) =>
+                                            handleLeaveBalanceChange(
+                                                "personal",
+                                                parseInt(e.target.value) || 0
+                                            )
+                                        }
+                                        min={0}
+                                        max={50}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB]"
+                                    />
+                                </div>
+
+                                {/* sick leave days */}
+                                <div>
+                                    <label
+                                        htmlFor="sickLeaveDays"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Sick Leave Days
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="sickLeaveDays"
+                                        id="sickLeaveDays"
+                                        value={formData.leaveBalances.sick}
+                                        onChange={(e) =>
+                                            handleLeaveBalanceChange(
+                                                "sick",
+                                                parseInt(e.target.value) || 0
+                                            )
+                                        }
+                                        min={0}
+                                        max={50}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB]"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* actions */}
+                        <div className="flex gap-4">
+                            <button
+                                type="button"
+                                onClick={() => navigate("/hr/employees")}
+                                className="w-full inline-flex items-center justify-center font-jakarta border border-[#E5E7EB] bg-[#FFFFFF]  text-[#212121] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
+                            >
+                                <X size={18} className="mr-2" />
+                                Cancel
+                            </button>
+
+                            <button
+                                type="button"
+                                className="w-full inline-flex items-center justify-center font-jakarta bg-[#111827] text-[#F9FAFB] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
+                            >
+                                <Save size={18} className="mr-2" />
+                                Cancel
+                            </button>
                         </div>
                     </form>
                 </div>
