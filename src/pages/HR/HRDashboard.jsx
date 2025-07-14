@@ -269,7 +269,7 @@ const HRDashboard = ({ user }) => {
                                                     </div>
                                                 </div>
                                                 <span
-                                                    className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(
+                                                    className={`px-3 py-1 text-sm font-medium capitalize rounded-full ${getStatusColor(
                                                         request.status
                                                     )}`}
                                                 >

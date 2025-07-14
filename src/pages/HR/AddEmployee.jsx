@@ -253,54 +253,6 @@ const AddEmployee = ({ user }) => {
                                 </h2>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* employee id */}
-                                <div>
-                                    <label
-                                        htmlFor="employeeId"
-                                        className="block text-sm font-medium mb-2"
-                                    >
-                                        Employee ID
-                                    </label>
-                                    <div className="flex items-center space-x-2">
-                                        <input
-                                            type="text"
-                                            name="employeeId"
-                                            id="employeeId"
-                                            value={formData.employeeId}
-                                            onChange={handleInputChange}
-                                            className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB] placeholder:text-xs"
-                                            placeholder="Auto-generate ot type in an employee ID"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={generateEmployeeId}
-                                            className="px-4 py-2 bg-[#111827] text-[#F9FAFB] hover:bg-gray-800 transition-colors duration-300 text-sm rounded-xl"
-                                        >
-                                            Generate
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* position */}
-                                <div>
-                                    <label
-                                        htmlFor="position"
-                                        className="block text-sm font-medium mb-2"
-                                    >
-                                        Position{" "}
-                                        <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="position"
-                                        id="position"
-                                        value={formData.position}
-                                        onChange={handleInputChange}
-                                        className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB]"
-                                        required
-                                    />
-                                </div>
-
                                 {/* department */}
                                 <div>
                                     <label
@@ -360,6 +312,53 @@ const AddEmployee = ({ user }) => {
                                         aria-label="Manager Selector"
                                     />
                                 </div>
+                                {/* employee id */}
+                                <div>
+                                    <label
+                                        htmlFor="employeeId"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Employee ID
+                                    </label>
+                                    <div className="flex items-center space-x-2">
+                                        <input
+                                            type="text"
+                                            name="employeeId"
+                                            id="employeeId"
+                                            value={formData.employeeId}
+                                            onChange={handleInputChange}
+                                            className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB] placeholder:text-xs"
+                                            placeholder="Auto-generate ot type in an employee ID"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={generateEmployeeId}
+                                            className="px-4 py-2 bg-[#111827] text-[#F9FAFB] hover:bg-gray-800 transition-colors duration-300 text-sm rounded-xl"
+                                        >
+                                            Generate
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* position */}
+                                <div>
+                                    <label
+                                        htmlFor="position"
+                                        className="block text-sm font-medium mb-2"
+                                    >
+                                        Position{" "}
+                                        <span className="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="position"
+                                        id="position"
+                                        value={formData.position}
+                                        onChange={handleInputChange}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#E5E7EB]"
+                                        required
+                                    />
+                                </div>
 
                                 {/* start date */}
                                 <div>
@@ -370,7 +369,10 @@ const AddEmployee = ({ user }) => {
                                         Start Date
                                     </label>
                                     <div className="relative w-full">
-                                        <CalendarDays className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                                        <CalendarDays
+                                            size={16}
+                                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+                                        />
                                         <DatePicker
                                             id="startDate"
                                             selected={
@@ -601,7 +603,7 @@ const AddEmployee = ({ user }) => {
                                 className="w-full inline-flex items-center justify-center font-jakarta bg-[#111827] text-[#F9FAFB] text-sm px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
                             >
                                 <Save size={18} className="mr-2" />
-                                Cancel
+                                Submit
                             </button>
                         </div>
                     </form>

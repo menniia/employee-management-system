@@ -5,6 +5,7 @@ import RequestLeave from "./pages/RequestLeave";
 import MyLeaves from "./pages/MyLeaves";
 import HRDashboard from "./pages/HR/HRDashboard";
 import AddEmployee from "./pages/HR/AddEmployee";
+import Employees from "./pages/HR/Employees";
 
 function App() {
     const mockUser = {
@@ -62,6 +63,10 @@ function App() {
                     <Route
                         path="/hr"
                         element={<HRDashboard user={mockHRUser} />}
+                    />
+                    <Route
+                        path="/hr/employees"
+                        element={<Employees user={mockHRUser} />}
                     />
                     <Route
                         path="/hr/employees/add"

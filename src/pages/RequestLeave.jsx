@@ -1,6 +1,7 @@
 import { differenceInBusinessDays, format } from "date-fns";
 import {
     ArrowLeft,
+    CalendarDays,
     CalendarIcon,
     CircleCheck,
     CircleCheckBig,
@@ -10,14 +11,17 @@ import {
     X,
 } from "lucide-react";
 import { useRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const RequestLeave = ({ user }) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         type: "",
-        startDate: undefined,
-        endDate: undefined,
+        startDate: "",
+        endDate: "",
         reason: "",
         supportingDocument: null,
     });
@@ -240,35 +244,51 @@ const RequestLeave = ({ user }) => {
                                 Leave Type{" "}
                                 <span className="text-red-500">*</span>
                             </label>
-                            <select
-                                id="leave-type"
-                                value={formData.type}
-                                onChange={(e) =>
-                                    setFormData((prev) => ({
-                                        ...prev,
-                                        type: e.target.value,
-                                    }))
-                                }
-                                className="w-full px-3 py-2 border border-[#E5E7EB] rounded-xl focus:ring-2 focus:ring-[#4500FF] focus:border-[#4500FF] transition-colors"
-                            >
-                                <option value="">Select leave type</option>
-                                {leaveTypes.map((type) => {
+                            <Select
+                                inputId="leave-type"
+                                options={leaveTypes.map((type) => {
                                     const balance = leaveBalances.find(
                                         (b) => b.type === type.value
                                     );
-                                    return (
-                                        <option
-                                            key={type.value}
-                                            value={type.value}
-                                        >
-                                            {type.label}{" "}
-                                            {balance &&
-                                                balance.type !== "unpaid" &&
-                                                `(${balance.remaining} left)`}
-                                        </option>
-                                    );
+                                    return {
+                                        value: type.value,
+                                        label:
+                                            type.label +
+                                            (balance &&
+                                            balance.type !== "unpaid"
+                                                ? ` (${balance.remaining} left)`
+                                                : ""),
+                                    };
                                 })}
-                            </select>
+                                placeholder="Select leave type"
+                                value={leaveTypes
+                                    .map((type) => {
+                                        const balance = leaveBalances.find(
+                                            (b) => b.type === type.value
+                                        );
+                                        return {
+                                            value: type.value,
+                                            label:
+                                                type.label +
+                                                (balance &&
+                                                balance.type !== "unpaid"
+                                                    ? ` (${balance.remaining} left)`
+                                                    : ""),
+                                        };
+                                    })
+                                    .find(
+                                        (option) =>
+                                            option.value === formData.type
+                                    )}
+                                onChange={(selectedOption) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        type: selectedOption?.value || "",
+                                    }))
+                                }
+                                className="react-select-container"
+                                classNamePrefix="react-select"
+                            />
                             {selectedBalance &&
                                 selectedBalance.type !== "unpaid" && (
                                     <p className="text-sm text-[#6B7280]">
@@ -281,87 +301,81 @@ const RequestLeave = ({ user }) => {
                         {/* date range */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium">
+                                <label
+                                    htmlFor="startDate"
+                                    className="block text-sm font-medium"
+                                >
                                     Start Date{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
-                                <div className="relative">
-                                    <input
-                                        type="date"
-                                        value={
+                                <div className="relative w-full">
+                                    <CalendarDays
+                                        size={16}
+                                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+                                    />
+                                    <DatePicker
+                                        id="startDate"
+                                        selected={
                                             formData.startDate
-                                                ? format(
-                                                      formData.startDate,
-                                                      "yyyy-MM-dd"
-                                                  )
-                                                : ""
+                                                ? new Date(formData.startDate)
+                                                : null
                                         }
-                                        onChange={(e) => {
-                                            const date = e.target.value
-                                                ? new Date(e.target.value)
-                                                : undefined;
+                                        onChange={(date) =>
                                             setFormData((prev) => ({
                                                 ...prev,
                                                 startDate: date,
-                                                endDate:
-                                                    date &&
-                                                    prev.endDate &&
-                                                    date > prev.endDate
-                                                        ? date
-                                                        : prev.endDate,
-                                            }));
-                                        }}
-                                        min={format(new Date(), "yyyy-MM-dd")}
-                                        className="w-full px-3 py-2 pl-10 border border-[#E5E7EB] rounded-xl focus:ring-2 focus:ring-[#4500FF] focus:border-[#4500FF] transition-colors"
-                                    />
-                                    <CalendarIcon
-                                        size={18}
-                                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6B7280] pointer-events-none"
+                                            }))
+                                        }
+                                        dateFormat="yyyy-MM-dd"
+                                        placeholderText="YYYY-MM-DD"
+                                        filterDate={(date) =>
+                                            date.getDay() !== 0 &&
+                                            date.getDay() !== 6
+                                        }
+                                        minDate={new Date()}
+                                        className="w-full border border-[#E5E7EB] pl-10 pr-3 py-2 rounded-lg text-sm"
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium">
+                                <label
+                                    htmlFor="endDate"
+                                    className="block text-sm font-medium"
+                                >
                                     End Date{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
-                                <div className="relative">
-                                    <input
-                                        type="date"
-                                        value={
+                                <div className="relative w-full">
+                                    <CalendarDays
+                                        size={16}
+                                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+                                    />
+                                    <DatePicker
+                                        id="endDate"
+                                        selected={
                                             formData.endDate
-                                                ? format(
-                                                      formData.endDate,
-                                                      "yyyy-MM-dd"
-                                                  )
-                                                : ""
+                                                ? new Date(formData.endDate)
+                                                : null
                                         }
-                                        onChange={(e) => {
-                                            const date = e.target.value
-                                                ? new Date(e.target.value)
-                                                : undefined;
+                                        onChange={(date) =>
                                             setFormData((prev) => ({
                                                 ...prev,
                                                 endDate: date,
-                                            }));
-                                        }}
-                                        min={
-                                            formData.startDate
-                                                ? format(
-                                                      formData.startDate,
-                                                      "yyyy-MM-dd"
-                                                  )
-                                                : format(
-                                                      new Date(),
-                                                      "yyyy-MM-dd"
-                                                  )
+                                            }))
                                         }
-                                        className="w-full px-3 py-2 pl-10 border border-[#E5E7EB] rounded-xl focus:ring-2 focus:ring-[#4500FF] focus:border-[#4500FF] transition-colors"
-                                    />
-                                    <CalendarIcon
-                                        size={18}
-                                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6B7280] pointer-events-none"
+                                        dateFormat="yyyy-MM-dd"
+                                        placeholderText="YYYY-MM-DD"
+                                        filterDate={(date) =>
+                                            date.getDay() !== 0 &&
+                                            date.getDay() !== 6
+                                        }
+                                        minDate={
+                                            formData.startDate
+                                                ? new Date(formData.startDate)
+                                                : new Date()
+                                        }
+                                        className="w-full border border-[#E5E7EB] pl-10 pr-3 py-2 rounded-lg text-sm"
                                     />
                                 </div>
                             </div>
