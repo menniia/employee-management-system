@@ -6,6 +6,7 @@ import MyLeaves from "./pages/MyLeaves";
 import HRDashboard from "./pages/HR/HRDashboard";
 import AddEmployee from "./pages/HR/AddEmployee";
 import Employees from "./pages/HR/Employees";
+import Login from "./pages/Login";
 
 function App() {
     const mockUser = {
@@ -24,6 +25,8 @@ function App() {
         <Router>
             <div className="min-h-screen bg-[#F9FAFB]">
                 <Routes>
+                    {/* login route */}
+                    <Route path="/login" element={<Login />} />
                     {/* employee routes */}
                     <Route
                         path="/"

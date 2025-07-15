@@ -2,8 +2,6 @@ import { differenceInBusinessDays, format } from "date-fns";
 import {
     ArrowLeft,
     CalendarDays,
-    CalendarIcon,
-    CircleCheck,
     CircleCheckBig,
     FileImage,
     Info,
