@@ -7,6 +7,7 @@ import {
     EyeOff,
     Loader2,
     Lock,
+    Mail,
     User,
 } from "lucide-react";
 import { useState } from "react";
@@ -104,7 +105,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4 font-jakarta">
+        <div className="min-h-screen bg-gradient-to-br from-[#E3F2FD] via-[#FFFFFF] to-purple-50 flex items-center justify-center p-4 font-jakarta">
             <div className="max-w-md w-full space-y-8">
                 {/* header */}
                 <div className="text-center">
@@ -164,7 +165,7 @@ const Login = () => {
                                 Email Address
                             </label>
                             <div className="relative">
-                                <User
+                                <Mail
                                     size={16}
                                     className="absolute left-3 top-3 text-[#4B5563] pointer-events-none"
                                 />
