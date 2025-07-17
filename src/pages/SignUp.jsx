@@ -165,14 +165,6 @@ const SignUp = () => {
             <div className="max-w-md w-full space-y-8 font-jakarta">
                 {/* header */}
                 <div className="text-center">
-                    <Link
-                        to="/login"
-                        className="inline-flex items-center text-[#757575] hover:text-[#424242] transition-colors mb-6"
-                    >
-                        <ArrowLeft size={16} className="mr-2" />
-                        Back to Sign In
-                    </Link>
-
                     <div className="flex items-center justify-center mb-6">
                         <img
                             width="70"
@@ -379,6 +371,25 @@ const SignUp = () => {
                             )}
                         </button>
                     </form>
+                </div>
+
+                <div className="text-center">
+                    <p className="text-sm text-[#757575] mb-4">
+                        Already have an account?{" "}
+                        <Link
+                            to="/login"
+                            className="text-[#5e26f7] hover:text-[#4500FF]"
+                        >
+                            Sign In Here
+                        </Link>
+                    </p>
+
+                    <div className="mt-3 text-[#757575] text-sm">
+                        <p>
+                            &copy; {new Date().getFullYear()} Mojo Payment
+                            Limited
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

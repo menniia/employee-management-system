@@ -10,7 +10,7 @@ import {
     User,
 } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -251,6 +251,16 @@ const Login = () => {
                             )}
                         </button>
                     </form>
+
+                    {/* forgot password link */}
+                    <div className="text-center mt-4">
+                        <Link
+                            to="/forgot-password"
+                            className="text-sm text-[#5e26f7] hover:text-[#4500FF] font-medium"
+                        >
+                            Forgot Password?
+                        </Link>
+                    </div>
                 </div>
 
                 {/* demo logins */}
@@ -302,6 +312,25 @@ const Login = () => {
                                 <div>Password: hr123</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="text-center">
+                    <p className="text-sm text-[#757575] mb-4">
+                        Don't have an account?{" "}
+                        <Link
+                            to="/signup"
+                            className="text-[#5e26f7] hover:text-[#4500FF]"
+                        >
+                            Sign Up Here
+                        </Link>
+                    </p>
+
+                    <div className="mt-3 text-[#757575] text-sm">
+                        <p>
+                            &copy; {new Date().getFullYear()} Mojo Payment
+                            Limited
+                        </p>
                     </div>
                 </div>
             </div>
