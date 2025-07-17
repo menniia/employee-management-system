@@ -8,6 +8,7 @@ import AddEmployee from "./pages/HR/AddEmployee";
 import Employees from "./pages/HR/Employees";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
     const mockUser = {
@@ -29,6 +30,11 @@ function App() {
                     {/* login route */}
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/forgot-password"
+                        element={<ForgotPassword />}
+                    />
+
                     {/* employee routes */}
                     <Route
                         path="/"
