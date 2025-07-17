@@ -135,7 +135,11 @@ const ForgotPassword = () => {
             localStorage.getItem("passwordResetRequest") || "{}"
         );
 
-        if (!resetRequest.code || Date.now() > resetRequest.expires) {
+        if (
+            !resetRequest.code ||
+            Date.now() > resetRequest.expires ||
+            timeLeft === 0
+        ) {
             setError(
                 "Verification code has expired, please request a new one."
             );
@@ -293,7 +297,9 @@ const ForgotPassword = () => {
                                 Sending Code...
                             </div>
                         ) : (
-                            "Send Verification Code"
+                            <div className="cursor-pointer">
+                                Send Verification Code
+                            </div>
                         )}
                     </button>
                 </form>
@@ -388,7 +394,7 @@ const ForgotPassword = () => {
                                 type="button"
                                 onClick={handleResendCode}
                                 disabled={timeLeft > 0 || isLoading}
-                                className="w-full py-2.5 px-4 bg-[#1E88E5] text-[#FFFFFF] disabled:text-[#e0dddd] disabled:cursor-not-allowed rounded-lg font-medium"
+                                className="w-full py-2.5 px-4 disabled:text-[#3d3a3a] disabled:cursor-not-allowed rounded-lg font-medium"
                             >
                                 {timeLeft > 0 ? (
                                     <span className="flex items-center justify-center cursor-not-allowed">
@@ -396,7 +402,7 @@ const ForgotPassword = () => {
                                         Resend code in {timeLeft}s
                                     </span>
                                 ) : (
-                                    <div className="cursor-pointer">
+                                    <div className="cursor-pointer text-[#6b3fe3]">
                                         Resend verification code
                                     </div>
                                 )}
