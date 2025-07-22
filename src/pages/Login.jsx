@@ -8,6 +8,7 @@ import {
     Lock,
     Mail,
     User,
+    UserCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,6 +35,11 @@ const Login = () => {
             email: "hr@company.com",
             password: "hr123",
             name: "HR Admin",
+        },
+        manager: {
+            email: "manager@company.com",
+            password: "manager123",
+            name: "Godfred Davidson",
         },
     };
 
@@ -66,31 +72,62 @@ const Login = () => {
         // setTimeOut to make it seem like an API call
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
-        // validate login credentials
-        const expectedLogins = demoLogins[formData.role];
+        // check for registered users
+        const registeredUsers = JSON.parse(
+            localStorage.getItem("registeredUsers") || "[]"
+        );
+        const registeredUser = registeredUsers.find(
+            (user) =>
+                user.email === formData.email &&
+                user.password === formData.password &&
+                user.role === formData.role
+        );
 
-        if (
-            formData.email === expectedLogins.email &&
-            formData.password === expectedLogins.password
-        ) {
-            // store this user data in authentication state management later
+        if (registeredUser) {
+            // login  with that registered user
             const userData = {
-                name: expectedLogins.name,
-                email: formData.email,
-                role: formData.role,
+                name: registeredUser.name,
+                email: registeredUser.email,
+                role: registeredUser.role,
             };
             localStorage.setItem("user", JSON.stringify(userData));
 
-            // navigate to user's dashboard
-            if (formData.role === "hr") {
+            // navigate to their dashboard
+            if (registeredUser.role === "hr") {
                 navigate("/hr");
+            } else if (registeredUser.role === "manager") {
+                navigate("/manager");
             } else {
                 navigate("/");
             }
         } else {
-            setError("Invalid email or password, please try again");
-        }
+            // fall back to demo logins
+            const expectedLogins = demoLogins[formData.role];
 
+            if (
+                formData.email === expectedLogins.email &&
+                formData.password === expectedLogins.password
+            ) {
+                // store this user data in authentication state management later
+                const userData = {
+                    name: expectedLogins.name,
+                    email: formData.email,
+                    role: formData.role,
+                };
+                localStorage.setItem("user", JSON.stringify(userData));
+
+                // navigate to user's dashboard
+                if (formData.role === "hr") {
+                    navigate("/hr");
+                } else if (formData.role === "manager") {
+                    navigate("/manager");
+                } else {
+                    navigate("/");
+                }
+            } else {
+                setError("Invalid email or password, please try again");
+            }
+        }
         setIsLoading(false);
     };
 
@@ -117,7 +154,7 @@ const Login = () => {
                         />
                     </div>
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        Welcome to MojoPay HR
+                        Welcome to Menniia HR
                     </h1>
                     <p className="text-gray-600">
                         Sign in to manage your leave requests
@@ -137,6 +174,18 @@ const Login = () => {
                     >
                         <User size={16} className="inline mr-2" />
                         Employee
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => handleRoleChanges("manager")}
+                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            formData.role === "manager"
+                                ? "bg-[#111827] text-[#F9FAFB] shadow-sm"
+                                : "text-[#212121] hover:text-gray-900"
+                        }`}
+                    >
+                        <UserCheck size={16} className="inline mr-2" />
+                        Manager
                     </button>
                     <button
                         type="button"
@@ -232,11 +281,7 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className={`w-full py-2.5 px-4 rounded-lg font-medium transition-all duration-200 ${
-                                formData.role === "hr"
-                                    ? "bg-[#111827] text-[#F9FAFB] shadow-sm"
-                                    : "text-[#212121] bg-[#ECEFF1] border border-[#CFD8DC]"
-                            } `}
+                            className="w-full py-2.5 px-4 rounded-lg font-medium text-[#212121] bg-[#ECEFF1] hover:bg-[#EEEEEE] border border-[#CFD8DC] transition-all duration-200"
                         >
                             {isLoading ? (
                                 <div className="flex items-center justify-center cursor-not-allowed">
@@ -247,7 +292,9 @@ const Login = () => {
                                     Signing in...
                                 </div>
                             ) : (
-                                "Sign In"
+                                <div className="cursor-pointer hover:font-semibold transition-all duration-200">
+                                    Sign In
+                                </div>
                             )}
                         </button>
                     </form>
@@ -280,6 +327,27 @@ const Login = () => {
                                 <button
                                     type="button"
                                     onClick={() => fillDemoLogins("employee")}
+                                    className="text-sm font-medium text-[#37474F] hover:text-[#263238]"
+                                    title="Click to use login"
+                                >
+                                    Use These
+                                </button>
+                            </div>
+                            <div className="text-sm text-[#212121] space-y-1">
+                                <div>Email: menniia@company.com</div>
+                                <div>Password: employee123</div>
+                            </div>
+                        </div>
+
+                        {/* manager access */}
+                        <div className="p-3 bg-gradient-to-br from-[#81C784]/70 via-[#A5D6A7]/90 to-[#C8E6C9] rounded-lg border border-[#90CAF9]">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm font-medium text-[#1e4a21]">
+                                    Manager Access
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={() => fillDemoLogins("manager")}
                                     className="text-sm font-medium text-[#37474F] hover:text-[#263238]"
                                     title="Click to use login"
                                 >
@@ -327,10 +395,7 @@ const Login = () => {
                     </p>
 
                     <div className="mt-3 text-[#757575] text-sm">
-                        <p>
-                            &copy; {new Date().getFullYear()} Mojo Payment
-                            Limited
-                        </p>
+                        <p>&copy; {new Date().getFullYear()} Menniia</p>
                     </div>
                 </div>
             </div>
