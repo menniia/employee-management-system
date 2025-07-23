@@ -1,18 +1,18 @@
-import React, { useState } from "react";
 import {
     Bell,
     Calendar,
-    LayoutDashboard,
-    Users,
     FileText,
-    Settings,
+    LayoutDashboard,
     LogOut,
     Menu,
+    Settings,
+    Users,
     X,
 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-const HRHeader = ({ user }) => {
+const ManagerHeader = ({ user }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const location = useLocation();
@@ -20,27 +20,27 @@ const HRHeader = ({ user }) => {
     const navigationItems = [
         {
             name: "Dashboard",
-            href: "/hr",
+            href: "/manager",
             icon: LayoutDashboard,
-            current: location.pathname === "/hr",
+            current: location.pathname === "/manager",
         },
         {
             name: "Leave Requests",
-            href: "/hr/leave-requests",
+            href: "/manager/leave-requests",
             icon: FileText,
-            current: location.pathname === "/hr/leave-requests",
+            current: location.pathname === "/manager/leave-requests",
         },
         {
-            name: "Employees",
-            href: "/hr/employees",
+            name: "My Team",
+            href: "/manager/team",
             icon: Users,
-            current: location.pathname === "/hr/employees",
+            current: location.pathname === "/manager/team",
         },
         {
-            name: "Calendar",
-            href: "/hr/calendar",
+            name: "Team Calendar",
+            href: "/manager/calendar",
             icon: Calendar,
-            current: location.pathname === "/hr/calendar",
+            current: location.pathname === "/manager/calendar",
         },
     ];
 
@@ -51,9 +51,8 @@ const HRHeader = ({ user }) => {
             .join("")
             .toUpperCase();
     };
-
     return (
-        <nav className="bg-white border-b border-[#EEEEEE] fixed w-full z-30 top-0 font-jakarta">
+        <nav className="bg-[#FFFFFF] border border-[#EEEEEE] fixed w-full z-30 top-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex">
@@ -68,7 +67,7 @@ const HRHeader = ({ user }) => {
                                     className="w-32 h-6"
                                 />
                                 <span className="px-2 py-1 text-xs font-semibold bg-[#9ddaa6] text-[#0a3911] rounded-full">
-                                    HR
+                                    Manager
                                 </span>
                             </Link>
                         </div>
@@ -81,8 +80,8 @@ const HRHeader = ({ user }) => {
                                         to={item.href}
                                         className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200 ${
                                             item.current
-                                                ? "border-[#4500FF] text-[#212121]"
-                                                : "border-transparent text-[#9E9E9E] hover:border-[#E0E0E0] hover:text-[#616161]"
+                                                ? "border-[#4500FF] text-gray-900"
+                                                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                                         }`}
                                     >
                                         <Icon className="w-4 h-4 mr-2" />
@@ -94,7 +93,7 @@ const HRHeader = ({ user }) => {
                     </div>
 
                     <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
-                        <button className="relative p-2 text-[#9E9E9E] hover:text-[#616161] transition-colors">
+                        <button className="relative p-2 text-gray-500 hover:text-gray-700 transition-colors">
                             <Bell className="w-5 h-5" />
                             <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white" />
                         </button>
@@ -102,7 +101,7 @@ const HRHeader = ({ user }) => {
                         <div className="relative">
                             <button
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                                className="flex items-center space-x-2 p-1 rounded-full hover:bg-[#F5F5F5] transition-colors cursor-pointer"
+                                className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
                             >
                                 <div className="w-8 h-8 bg-[#4500FF] rounded-full flex items-center justify-center">
                                     {user?.profileImage ? (
@@ -112,9 +111,9 @@ const HRHeader = ({ user }) => {
                                             className="w-8 h-8 rounded-full object-cover"
                                         />
                                     ) : (
-                                        <span className="text-[#FFFFFF] text-sm font-medium">
+                                        <span className="text-white text-sm font-medium">
                                             {getUserInitials(
-                                                user?.name || "HR Admin"
+                                                user?.name || "Manager"
                                             )}
                                         </span>
                                     )}
@@ -124,30 +123,31 @@ const HRHeader = ({ user }) => {
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-[#E5E7EB] ring-opacity-5 z-50">
                                     <div className="py-1">
-                                        <div className="px-4 py-3 border-b border-[#F5F5F5]">
+                                        <div className="px-4 py-3 border-b border-gray-100">
                                             <div className="flex flex-col space-y-1">
-                                                <p className="text-sm font-medium text-[#212121]">
-                                                    {user?.name || "HR Admin"}
+                                                <p className="text-sm font-medium text-gray-900">
+                                                    {user?.name || "Manager"}
                                                 </p>
-                                                <p className="text-xs text-[#9E9E9E]">
+                                                <p className="text-xs text-gray-500">
                                                     {user?.email ||
-                                                        "hr@mojopay.com"}
+                                                        "manager@mojopay.com"}
                                                 </p>
                                                 <p className="text-xs text-[#4500FF] font-medium capitalize">
-                                                    {user?.role || "hr"} Role
+                                                    {user?.role || "manager"}{" "}
+                                                    Role
                                                 </p>
                                             </div>
                                         </div>
                                         <a
                                             href="#"
-                                            className="flex items-center px-4 py-2 text-sm text-[#616161] hover:bg-[#F5F5F5] transition-colors"
+                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
                                         >
                                             <Settings className="mr-3 h-4 w-4" />
                                             Settings
                                         </a>
                                         <a
                                             href="#"
-                                            className="flex items-center px-4 py-2 text-sm text-[#E53935] hover:bg-[#F5F5F5] transition-colors"
+                                            className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors"
                                         >
                                             <LogOut className="mr-3 h-4 w-4" />
                                             Log out
@@ -161,7 +161,7 @@ const HRHeader = ({ user }) => {
                     <div className="-mr-2 flex items-center sm:hidden">
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="p-2 rounded-md text-[#9E9E9E] hover:text-[#616161] hover:bg-[#F5F5F5] transition-colors"
+                            className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                         >
                             {mobileMenuOpen ? (
                                 <X className="w-6 h-6" />
@@ -184,8 +184,8 @@ const HRHeader = ({ user }) => {
                                     to={item.href}
                                     className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors duration-200 ${
                                         item.current
-                                            ? "bg-[#F3E5F5] border-[#2196F3] text-[#4500FF]"
-                                            : "border-transparent text-[#9E9E9E] hover:bg-[#FAFAFA] hover:border-[#E0E0E0] hover:text-[#616161]"
+                                            ? "bg-purple-50 border-blue-500 text-[#4500FF]"
+                                            : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
                                     }`}
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
@@ -197,7 +197,7 @@ const HRHeader = ({ user }) => {
                             );
                         })}
                     </div>
-                    <div className="pt-4 pb-3 border-t border-[#EEEEEE]">
+                    <div className="pt-4 pb-3 border-t border-gray-200">
                         <div className="flex items-center px-4">
                             <div className="flex-shrink-0">
                                 <div className="w-10 h-10 bg-[#4500FF] rounded-full flex items-center justify-center">
@@ -252,4 +252,4 @@ const HRHeader = ({ user }) => {
     );
 };
 
-export default HRHeader;
+export default ManagerHeader;
