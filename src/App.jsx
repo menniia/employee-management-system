@@ -9,6 +9,7 @@ import Employees from "./pages/HR/Employees";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
 
 function App() {
     const mockUser = {
@@ -83,6 +84,9 @@ function App() {
                         path="/hr/employees/add"
                         element={<AddEmployee user={mockHRUser} />}
                     />
+
+                    {/* manager routes */}
+                    <Route path="/manager" element={<ManagerDashboard />} />
                 </Routes>
             </div>
         </Router>

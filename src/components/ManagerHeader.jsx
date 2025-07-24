@@ -10,7 +10,7 @@ import {
     X,
 } from "lucide-react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ManagerHeader = ({ user }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
