@@ -10,23 +10,26 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ManagerDashboard from "./pages/manager/ManagerDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-    const mockUser = {
-        name: "Menniia Donatus",
-        email: "md@example.com",
-        role: "employee",
-    };
+    //    get user from localstorage
+    const getUserFromStorage = () => {
+        const userStr = localStorage.getItem("user");
+        if (userStr) {
+            try {
+                return JSON.parse(userStr);
+            } catch {
+                return null;
+            }
+        }
 
-    const mockHRUser = {
-        name: "HR Admin",
-        email: "hr@company.com",
-        role: "hr",
+        return null;
     };
 
     return (
         <Router>
-            <div className="min-h-screen bg-[#F9FAFB]">
+            <div className="min-h-screen bg-[#F9FAFB] font-jakarta">
                 <Routes>
                     {/* login route */}
                     <Route path="/signup" element={<SignUp />} />
@@ -40,53 +43,88 @@ function App() {
                     <Route
                         path="/"
                         element={
-                            <>
-                                <EmployeeHeader user={mockUser} />
-                                <main className="pt-16">
-                                    <EmployeeDashboard user={mockUser} />
-                                </main>
-                            </>
+                            <ProtectedRoute requiredRole="employee">
+                                <>
+                                    <EmployeeHeader
+                                        user={getUserFromStorage()}
+                                    />
+                                    <main className="pt-16">
+                                        <EmployeeDashboard
+                                            user={getUserFromStorage()}
+                                        />
+                                    </main>
+                                </>
+                            </ProtectedRoute>
                         }
                     />
                     <Route
                         path="/request-leave"
                         element={
-                            <>
-                                <EmployeeHeader user={mockUser} />
-                                <main className="pt-16">
-                                    <RequestLeave user={mockUser} />
-                                </main>
-                            </>
+                            <ProtectedRoute requiredRole="employee">
+                                <>
+                                    <EmployeeHeader
+                                        user={getUserFromStorage()}
+                                    />
+                                    <main className="pt-16">
+                                        <RequestLeave
+                                            user={getUserFromStorage()}
+                                        />
+                                    </main>
+                                </>
+                            </ProtectedRoute>
                         }
                     />
                     <Route
                         path="/my-leaves"
                         element={
-                            <>
-                                <EmployeeHeader user={mockUser} />
-                                <main className="pt-16">
-                                    <MyLeaves user={mockUser} />
-                                </main>
-                            </>
+                            <ProtectedRoute requiredRole="employee">
+                                <>
+                                    <EmployeeHeader
+                                        user={getUserFromStorage()}
+                                    />
+                                    <main className="pt-16">
+                                        <MyLeaves user={getUserFromStorage()} />
+                                    </main>
+                                </>
+                            </ProtectedRoute>
                         }
                     />
 
                     {/* hr routes */}
                     <Route
                         path="/hr"
-                        element={<HRDashboard user={mockHRUser} />}
+                        element={
+                            <ProtectedRoute requiredRole="hr">
+                                <HRDashboard user={getUserFromStorage()} />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="/hr/employees"
-                        element={<Employees user={mockHRUser} />}
+                        element={
+                            <ProtectedRoute requiredRole="hr">
+                                <Employees user={getUserFromStorage()} />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="/hr/employees/add"
-                        element={<AddEmployee user={mockHRUser} />}
+                        element={
+                            <ProtectedRoute requiredRole="hr">
+                                <AddEmployee user={getUserFromStorage()} />
+                            </ProtectedRoute>
+                        }
                     />
 
                     {/* manager routes */}
-                    <Route path="/manager" element={<ManagerDashboard />} />
+                    <Route
+                        path="/manager"
+                        element={
+                            <ProtectedRoute requiredRole="manager">
+                                <ManagerDashboard user={getUserFromStorage()} />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Routes>
             </div>
         </Router>

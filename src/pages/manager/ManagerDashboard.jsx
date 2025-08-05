@@ -13,7 +13,9 @@ const ManagerDashboard = ({ user }) => {
     return (
         <div className="min-h-screen bg-[#FAFAFA]">
             <ManagerHeader />
-            <div></div>
+            <main className="pt-16">
+                <div></div>
+            </main>
         </div>
     );
 };

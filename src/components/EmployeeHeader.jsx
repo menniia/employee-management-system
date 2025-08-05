@@ -51,12 +51,16 @@ const EmployeeHeader = ({ user }) => {
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link to="/">
-                                <img
+                            <Link
+                                to="/"
+                                className="text-[#4500FF] font-bold text-xl"
+                            >
+                                {/* <img
                                     src="/images/mojoLogo.svg"
                                     alt="mojo-pay logo"
                                     className="w-32 h-6"
-                                />
+                                /> */}
+                                Menniia HR
                             </Link>
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:space-x-8">

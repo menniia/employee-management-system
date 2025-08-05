@@ -61,11 +61,14 @@ const ManagerHeader = ({ user }) => {
                                 to="/hr"
                                 className="flex items-center space-x-2"
                             >
-                                <img
+                                {/* <img
                                     src="/images/mojoLogo.svg"
                                     alt="mojo-pay logo"
                                     className="w-32 h-6"
-                                />
+                                /> */}
+                                <span className="text-[#4500FF] font-bold text-xl">
+                                    Menniia HR
+                                </span>
                                 <span className="px-2 py-1 text-xs font-semibold bg-[#9ddaa6] text-[#0a3911] rounded-full">
                                     Manager
                                 </span>
