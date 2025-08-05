@@ -150,6 +150,11 @@ const HRHeader = ({ user }) => {
                                         </a>
                                         <a
                                             href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                localStorage.removeItem("user");
+                                                window.location.href = "/login";
+                                            }}
                                             className="flex items-center px-4 py-2 text-sm text-[#E53935] hover:bg-[#F5F5F5] transition-colors"
                                         >
                                             <LogOut className="mr-3 h-4 w-4" />

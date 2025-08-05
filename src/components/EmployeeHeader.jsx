@@ -140,6 +140,11 @@ const EmployeeHeader = ({ user }) => {
                                         </a>
                                         <a
                                             href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                localStorage.removeItem("user");
+                                                window.location.href = "/login";
+                                            }}
                                             className="flex items-center px-4 py-2 text-sm font-jakarta text-red-600 hover:bg-gray-100 transition-colors"
                                         >
                                             <LogOut className="mr-3 h-4 w-4" />
