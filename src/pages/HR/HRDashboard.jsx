@@ -74,20 +74,20 @@ const HRDashboard = ({ user }) => {
     const upcomingHolidays = [
         {
             id: "1",
-            name: "Founders' Day",
-            date: "2025-08-04",
+            name: "Kwame Nkrumah Memorial Day",
+            date: "2025-09-22",
             type: "National",
         },
         {
             id: "2",
-            name: "Kwame Nkrumah Memorial Day",
-            date: "2025-09-21",
+            name: "Farmers Day",
+            date: "2025-12-05",
             type: "National",
         },
         {
             id: "3",
-            name: "Farmers Day",
-            date: "2025-12-05",
+            name: "Christmas Day",
+            date: "2025-12-25",
             type: "National",
         },
     ];
@@ -162,7 +162,7 @@ const HRDashboard = ({ user }) => {
 
                     {/* stat cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div className="bg-white rounded-lg border border-[#E5E7EB] p-6">
+                        <div className="bg-[#FFFFFF] rounded-lg border border-[#E5E7EB] p-6">
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="text-sm font-medium">
                                     Total Employees
@@ -182,7 +182,7 @@ const HRDashboard = ({ user }) => {
                                 <h3 className="text-sm font-medium">
                                     Working Today
                                 </h3>
-                                <Activity className="h-4 w-4 text-green-500" />
+                                <Activity className="h-4 w-4 text-[#4CAF50]" />
                             </div>
                             <div className="text-2xl font-bold">
                                 {stats.workingEmployees}
@@ -197,7 +197,7 @@ const HRDashboard = ({ user }) => {
                                 <h3 className="text-sm font-medium">
                                     Pending Approvals
                                 </h3>
-                                <Clock className="h-4 w-4 text-yellow-500" />
+                                <Clock className="h-4 w-4 text-[#F9A825]" />
                             </div>
                             <div className="text-2xl font-bold">
                                 {stats.pendingApprovals}

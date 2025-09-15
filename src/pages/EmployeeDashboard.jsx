@@ -72,20 +72,20 @@ const EmployeeDashboard = ({ user }) => {
     const upcomingHolidays = [
         {
             id: "1",
-            name: "Founders' Day",
-            date: "2025-08-04",
+            name: "Kwame Nkrumah Memorial Day",
+            date: "2025-09-22",
             type: "National",
         },
         {
             id: "2",
-            name: "Kwame Nkrumah Memorial Day",
-            date: "2025-09-21",
+            name: "Farmers Day",
+            date: "2025-12-05",
             type: "National",
         },
         {
             id: "3",
-            name: "Farmers Day",
-            date: "2025-12-05",
+            name: "Christmas Day",
+            date: "2025-12-25",
             type: "National",
         },
     ];
