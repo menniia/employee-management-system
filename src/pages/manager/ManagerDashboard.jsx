@@ -13,6 +13,7 @@ import {
     XCircle,
     Clock,
     BarChart3,
+    CalendarDays,
 } from "lucide-react";
 
 const ManagerDashboard = ({ user }) => {
@@ -576,7 +577,63 @@ const ManagerDashboard = ({ user }) => {
 
                                 <div className="space-y-4">
                                     {leaveStatistics.map((stat) => (
-                                        <div></div>
+                                        <div
+                                            key={stat.type}
+                                            className="flex items-center justify-between"
+                                        >
+                                            <div className="flex items-center space-x-3">
+                                                <div
+                                                    className={`w-3 h-3 rounded-full ${stat.color}`}
+                                                />
+                                                <span className="text-sm font-medium text-[#212121]">
+                                                    {stat.type}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center space-x-3">
+                                                <div className="w-16 bg-[#E2E8F0] rounded-full h-2">
+                                                    <div
+                                                        className={`h-2 rounded-full ${stat.color}`}
+                                                        style={{
+                                                            width: `${
+                                                                (stat.count /
+                                                                    20) *
+                                                                100
+                                                            }%`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <span className="text-sm font-medium">
+                                                    {stat.count}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* upcoming leaves */}
+                            <div className="bg-[#FFFFFF] rounded-xl border border-[#E5E7EB] p-6">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <CalendarDays size={25} />
+                                    <h3 className="font-semibold text-[#212121]">
+                                        Upcoming Leaves
+                                    </h3>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {upcomingLeaves.map((leave, index) => (
+                                        <div key={index} className="text-sm">
+                                            <div className="font-medium text-[#212121]">
+                                                {leave.employee}
+                                            </div>
+                                            <div className="text-[#64748B]">
+                                                {leave.type} • {leave.date} (
+                                                {leave.days} day
+                                                {leave.days > 1
+                                                    ? "s"
+                                                    : ""}){" "}
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
