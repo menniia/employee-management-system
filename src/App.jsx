@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ManagerDashboard from "./pages/manager/ManagerDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ManagerLeaveRequests from "./pages/manager/ManagerLeaveRequests";
 
 function App() {
     //    get user from localstorage
@@ -122,6 +123,16 @@ function App() {
                         element={
                             <ProtectedRoute requiredRole="manager">
                                 <ManagerDashboard user={getUserFromStorage()} />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/manager/leave-requests"
+                        element={
+                            <ProtectedRoute requiredRole="manager">
+                                <ManagerLeaveRequests
+                                    user={getUserFromStorage()}
+                                />
                             </ProtectedRoute>
                         }
                     />

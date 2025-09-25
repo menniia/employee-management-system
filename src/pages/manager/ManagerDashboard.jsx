@@ -34,12 +34,12 @@ const ManagerDashboard = ({ user }) => {
             department: "Engineering",
             position: "Frontend Developer",
             leaveType: "Vacation",
-            startDate: "202-09-15",
+            startDate: "2025-09-15",
             endDate: "2025-09-19",
             days: 5,
             status: "pending",
             appliedDate: "2025-08-28",
-            reason: "Vacation to San Diego",
+            reason: "Vacation to Jo'burg",
             urgency: "normal",
         },
         {
@@ -136,6 +136,7 @@ const ManagerDashboard = ({ user }) => {
                 return "bg-gray-100 text-gray-800";
         }
     };
+
     const getUrgencyColor = (urgency) => {
         return urgency === "urgent" ? "border-l-4 border-red-500" : "";
     };
